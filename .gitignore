@@ -3,6 +3,10 @@
 ## Eclipse
 #################
 
+## config file
+*.log
+*.config
+
 *.pydevproject
 .project
 .metadata

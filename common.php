@@ -27,24 +27,39 @@ function get_douban($douban_id) {
     $xmlStr = file_get_contents($douban_rss);
     $xmlObj = simplexml_load_string($xmlStr);
 
+    if(DEBUG){
+        set_douban_debug_log($douban_id,$xmlObj);
+    }
+    
     $douban_rss_list = array();
     if (!empty($xmlObj->channel->item)) {
         foreach ($xmlObj->channel->item as $k => $v) {
-            if ($v->link == $v->guid) {
+            $douban_book_base_url = "http:\/\/book.douban.com\/subject\/";
+            if ($v->link == $v->guid || preg_match($douban_book_base_url, $v->link)) {
+				/*
                 $t_2 = file_get_contents($v->link);
+				$text = "";
                 if (preg_match("/<p class=\"text\">([\w\W]*?)<\/p>/i", $t_2, $m)) {
 
                     $text = "";
                     if (preg_match("/<blockquote>([\w\W]*?)<\/blockquote>/i", $t_2, $m2)) {
                         $text = strip_tags(ltrim($m2[1]));
                     }
-
-                    $time = strtotime($v->pubDate);
-                    $douban_rss_list[$time]["time"] = $time;
-                    $douban_rss_list[$time]["content"] = $text . " #douban " . strip_tags(ltrim($m[1]));
-                    //array_unshift($douban_rss_list, "#douban " . strip_tags(ltrim($m[0])) . " " . $v->link);
                 }
+				*/
+				
+				$time = strtotime($v->pubDate);
+				$douban_rss_list[$time]["time"] = $time;
+				$douban_rss_list[$time]["link"] = strval($v->link);
+				$douban_rss_list[$time]["content"] = $text . " #douban #NowPlaying " . strip_tags(ltrim(str_ireplace('We_Get推荐','',$v->title)));
+				
+				/*
+				echo "<pre>";
+				var_dump($douban_rss_list[$time]);
+				echo "</pre>";
+				*/
             }
+			
         }
     }
 
@@ -69,7 +84,15 @@ function set_douban_log($douban_id, $douban_str) {
 function set_douban_error_log($douban_id, $douban_str) {
     $user_file_name = DATA_DIRECTORY . $douban_id . ".douban.error.log";
     $fh = fopen($user_file_name, 'a');
-    $result = fwrite($fh, serialize($douban_str) . "/n");
+    $result = fwrite($fh, serialize($douban_str) . "\n");
+    fclose($fh);
+    return $result;
+}
+
+function set_douban_debug_log($douban_id, $douban_str) {
+    $user_file_name = DATA_DIRECTORY . $douban_id . ".douban.debug.log";
+    $fh = fopen($user_file_name, 'a');
+    $result = fwrite($fh, serialize($douban_str) . "\n");
     fclose($fh);
     return $result;
 }
