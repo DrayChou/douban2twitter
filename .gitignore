@@ -6,6 +6,7 @@
 ## config file
 *.log
 *.config
+config.php
 
 *.pydevproject
 .project
