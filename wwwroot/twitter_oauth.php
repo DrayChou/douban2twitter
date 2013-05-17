@@ -1,8 +1,6 @@
 <?php
 
-require 'config.php';
-require 'common.php';
-require 'twitteroauth/twitteroauth.php';
+require dirname(dirname(__FILE__)).'init.php';
 
 if (!empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access_token']['oauth_token_secret'])) {
     //登陆完毕之后干嘛

@@ -1,8 +1,6 @@
 <?php
 
-require 'config.php';
-require 'common.php';
-require 'twitteroauth/twitteroauth.php';
+require dirname(dirname(__FILE__)).'init.php';
 
 $last_douban = get_douban_log(DOUBAN_ID);
 $new_douban = get_douban(DOUBAN_ID);
