@@ -26,25 +26,7 @@ if (!empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access
     $_SESSION['screen_name'] = $access_token["screen_name"];
 
     set_twitter_config($access_token);
-    echo "取得授权。。。";
-    echo <<<END
-<script language="javascript" type="text/javascript">
-    var hwd;
-    var intSec = 3;//这里定义时间：秒
-    function reHandle()
-    {
-        if(intSec==0) {
-            window.location.href = 'index.php';
-        } else {
-            intSec--;
-        }
-        hwd = setTimeout(reHandle,1000);
-    }
-    reHandle();
-    document.write('<p><span id="tiao">'+intSec+'</span>秒后自动跳转…</p>')
-</script>
-END;
-die();
+    header('Location: /index.php');
 } elseif ($_GET["setp"] == "1"){
 	
 } else {
@@ -63,7 +45,6 @@ die();
 	if ($twitteroauth->http_code == 200) {
 	    // Let's generate the URL and redirect
 	    $oauth_url = $twitteroauth->getAuthorizeURL($request_token['oauth_token']);
-	    header('Location: ' . $url);
 	} else {
 	    // 发生错误，你可以做一些更友好的处理
 	    die('Something wrong happened.');
