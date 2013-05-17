@@ -3,9 +3,9 @@
 ini_set("display_errors", "On"); 
 error_reporting(E_ALL | E_STRICT);
 
-require 'include/config.php';
-require 'include/common.php';
-require 'include/twitteroauth/twitteroauth.php';
+include 'include/config.php';
+include 'include/common.php';
+include 'include/twitteroauth/twitteroauth.php';
 
 define('APPROOT', dirname(__FILE__));
 define('USER_DIR', APPROOT . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR);

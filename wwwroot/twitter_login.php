@@ -1,6 +1,6 @@
 <?php
 
-require dirname(dirname(__FILE__)).'init.php';
+include dirname(dirname(__FILE__)).'init.php';
 
 // 创建 TwitterOAuth 对象实例
 $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);

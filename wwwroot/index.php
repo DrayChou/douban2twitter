@@ -4,7 +4,7 @@ if ($_GET["setp"] == "0") {
     session_destroy();
 }
 
-require dirname(dirname(__FILE__)).'init.php';
+include dirname(dirname(__FILE__)).'init.php';
 
 if (!empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret'])) {
     //看推
