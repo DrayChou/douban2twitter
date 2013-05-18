@@ -6,8 +6,6 @@ if ($_GET["setp"] == "0") {
     session_destroy();
 }
 
-var_dump($_SESSION);
-die();
 
 if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access_token']['oauth_token_secret']) ) {
     //登陆完毕之后干嘛
@@ -37,6 +35,9 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	$twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 	// Requesting authentication tokens, the parameter is the URL we will be redirected to
 	$request_token = $twitteroauth->getRequestToken(OAUTH_CALLBACK);
+
+    var_dump($request_token);
+    die();
 
 	// 保存到 session 中
 	$_SESSION['oauth_token'] = $request_token['oauth_token'];
