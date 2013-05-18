@@ -3,7 +3,7 @@
 
 include 'include/config.php';
 include 'include/common.php';
-include 'include/twitteroauth/twitteroauth.php';
+include 'include/twitteroauth/twitteroauth/twitteroauth.php';
 
 error_reporting(E_ALL);
 
