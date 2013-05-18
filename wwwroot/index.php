@@ -1,5 +1,5 @@
 <?php
-include dirname(dirname(__FILE__)).'init.php';
+include dirname(dirname(__FILE__)).'/init.php';
 
 if ($_GET["setp"] == "0") {
     session_start();
