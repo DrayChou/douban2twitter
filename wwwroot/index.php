@@ -3,7 +3,7 @@ include dirname(dirname(__FILE__)).'/init.php';
 
 if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access_token']['oauth_token_secret']) ) {
     //登陆完毕之后干嘛
-    echo "已取得授权。。。";
+    //echo "已取得授权。。。";
     //看推
     $username = isset($_GET['t']) ? $_GET['t'] : $_SESSION['screen_name'];
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['access_token']['oauth_token'], $_SESSION['access_token']['oauth_token_secret']);
@@ -17,14 +17,17 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
     if(!isset($result[0])){
 	    session_destroy();
-	    header('Location: /index.php');
+	    echo "调用 twitter API 查询用户信息失败，请刷新页面重新验证，或者通知管理员<br/>";
+        echo '<a href="javascript:window.top.location.reload();" >返回</a>';
+        die();
     }
     $twitter = @$result[0];
 
 	$setp = isset($_GET["setp"]) ? $_GET["setp"] : '-1';
 	if ( $setp == "0" ) {
 	    session_destroy();
-	    header('Location: /index.php');
+        echo "<script>window.top.location.reload();</script>";
+        die();
 	} elseif ( $setp == "1" ){
 		$douban_screen_name = isset($_POST["dn"]) ? $_POST["dn"] : '';
 		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
@@ -34,7 +37,9 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
         }
 		
 		if( empty($douban_userinfo) ){
-			//header('Location: /index.php');
+			echo "豆瓣ID错误，或者豆瓣 API 查询失败，请返回重新填写 <br/>";
+            echo '<a href="javascript:window.history.go(-1);" >返回</a>';
+            die();
 		}
 		$_SESSION['douban'] = $douban_userinfo;
 
@@ -97,7 +102,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Twitter OAuth in PHP</title>
+        <title>豆瓣说说[电台]同步到 Twitter.</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <style type="text/css">
             img {border-width: 0}
@@ -106,7 +111,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     </head>
     <body style="background-image: <?= $twitter->profile_background_image_url ?>;">
         <div>
-            <h2>Welcome to a Twitter OAuth PHP example.</h2>
+            <h2>豆瓣说说[电台]同步到 Twitter.</h2>
 
             <div>
                 <?php if (!empty($twitter)): ?>
@@ -114,7 +119,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
                     <img src="<?= $twitter->profile_image_url_https ?>" title="<?= $twitter->name ?>"/><br/>
                     name:<?= $twitter->name ?><br/>
                     bio:<?= $twitter->description ?><br/>
-                    <p><a href='./index.php?setp=0'>clearing your session</a></p>
+                    <p><a href='./index.php?setp=0'>退出登录</a></p>
 
 					 <div>
 		                <?php if (!empty($douban_userinfo)): ?>
