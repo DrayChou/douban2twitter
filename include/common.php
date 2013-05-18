@@ -1,5 +1,6 @@
 <?php
 
+
 function get_douban($douban_id, $count = 5) {
     $douban_rss = 'https://api.douban.com/shuo/v2/statuses/user_timeline/' . $douban_id . '?count=' . $count;
     $jsonStr = file_get_contents($douban_rss);

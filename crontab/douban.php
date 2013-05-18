@@ -1,5 +1,6 @@
 <?php
 
+
 require dirname(dirname(__FILE__)).'init.php';
 
 $last_douban = get_douban_log(DOUBAN_ID);
