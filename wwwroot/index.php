@@ -1,12 +1,6 @@
 <?php
 include dirname(dirname(__FILE__)).'/init.php';
 
-if ($_GET["setp"] == "0") {
-    session_start();
-    session_destroy();
-}
-
-
 if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access_token']['oauth_token_secret']) ) {
     //登陆完毕之后干嘛
     echo "已取得授权。。。";
@@ -20,6 +14,23 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
     //echo '<pre>',var_dump($result,true),'</pre>';
     $twitter = $result[0];
+
+
+	$setp = isset($_GET["setp"]) ? $_GET["setp"] : -1;
+	if ( $setp == "0" ) {
+	    session_destroy();
+	    header('Location: /index.php');
+	} elseif ( $setp == "1" ){
+		$douban_screen_name = isset($_GET["dn"]) ? $_GET["dn"] : '';
+		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
+		if( empty($douban_userinfo) ){
+			header('Location: /index.php');
+		}
+		$_SESSION['douban'] = $douban_userinfo;
+		set_twitter_config($_SESSION);
+    	header('Location: /index.php');
+	}
+    
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
     // 数据合法，继续
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
@@ -90,6 +101,20 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
                     <p><a href='./index.php?setp=0'>clearing your session</a></p>
                 <?php else:?>
                     <a href='<?=$oauth_url?>'>twitter</a>
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <?php if (!empty($douban_userinfo)): ?>
+                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
+                    name:<?= $douban_userinfo['name'] ?><br/>
+                    bio:<?= $douban_userinfo['desc'] ?><br/>
+                    <p><a href='./index.php?setp=0'>clearing your session</a></p>
+                <?php else:?>
+                    <form method="post" action="index.php?s=1">
+                    	<input type="text" name="dn">
+                    	<input type="submit">
+                    </form>
                 <?php endif; ?>
             </div>
     </body>

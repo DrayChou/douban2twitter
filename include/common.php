@@ -1,5 +1,15 @@
 <?php
 
+function get_douban_userinfo($douban_id) {
+    $douban_rss = 'https://api.douban.com/v2/user/' . $douban_id;
+    $jsonStr = file_get_contents($douban_rss);
+    $jsonArr = json_decode($jsonStr, true);
+
+    if(DEBUG){
+        set_douban_debug_log($douban_id,$jsonArr);
+    }
+    return $jsonArr;
+}
 
 function get_douban($douban_id, $count = 5) {
     $douban_rss = 'https://api.douban.com/shuo/v2/statuses/user_timeline/' . $douban_id . '?count=' . $count;
