@@ -7,7 +7,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     //看推
     $username = isset($_GET['t']) ? $_GET['t'] : $_SESSION['screen_name'];
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-	$twitteroauth->$host = "https://api.twitter.com/1.1/";
+	$twitteroauth->host = "https://api.twitter.com/1.1/";
 	$twitteroauth->useragent = 'Custom useragent string';
 	$twitteroauth->ssl_verifypeer = TRUE;
     
@@ -15,8 +15,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     //echo '<pre>',var_dump($result,true),'</pre>';
     $twitter = $result[0];
 
-
-	$setp = isset($_GET["setp"]) ? $_GET["setp"] : -1;
+	$setp = isset($_GET["setp"]) ? $_GET["setp"] : '-1';
 	if ( $setp == "0" ) {
 	    session_destroy();
 	    header('Location: /index.php');
@@ -34,7 +33,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
     // 数据合法，继续
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-    $twitteroauth->$host = "https://api.twitter.com/1.1/";
+    $twitteroauth->host = "https://api.twitter.com/1.1/";
 	$twitteroauth->useragent = 'Custom useragent string';
 	$twitteroauth->ssl_verifypeer = TRUE;
 
@@ -54,7 +53,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
     // 创建 TwitterOAuth 对象实例
 	$twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-	$twitteroauth->$host = "https://api.twitter.com/1.1/";
+	$twitteroauth->host = "https://api.twitter.com/1.1/";
 	$twitteroauth->useragent = 'Custom useragent string';
 	$twitteroauth->ssl_verifypeer = TRUE;
 
