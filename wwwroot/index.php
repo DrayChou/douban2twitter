@@ -111,7 +111,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
 		                <?php else:?>
-		                    <form method="post" action="index.php?s=1">
+		                    <form method="post" action="index.php?setp=1">
 		                    	<input type="text" name="dn">
 		                    	<input type="submit">
 		                    </form>
