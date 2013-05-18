@@ -12,7 +12,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	$twitteroauth->ssl_verifypeer = TRUE;
     
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
-    //echo '<pre>',var_dump($result,true),'</pre>',die();;
+    echo '<pre>',var_dump($result,true),'</pre>';
     if(empty($result[0])){
 	    session_destroy();
 	    header('Location: /index.php');
@@ -26,6 +26,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	} elseif ( $setp == "1" ){
 		$douban_screen_name = isset($_GET["dn"]) ? $_GET["dn"] : '';
 		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
+		echo '<pre>',var_dump($douban_userinfo,true),'</pre>';
+		
 		if( empty($douban_userinfo) ){
 			header('Location: /index.php');
 		}
@@ -109,7 +111,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
 		                <?php else:?>
-		                    <form method="post" action="index.php?s=1">
+		                    <form method="get" action="index.php?s=1">
 		                    	<input type="text" name="dn">
 		                    	<input type="submit">
 		                    </form>
