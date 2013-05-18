@@ -35,7 +35,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     // 创建 TwitterOAuth 对象实例
 	$twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 
-    var_dump($twitteroauth);die();
+    //var_dump($twitteroauth);die();
 
 	// Requesting authentication tokens, the parameter is the URL we will be redirected to
 	$request_token = $twitteroauth->getRequestToken(OAUTH_CALLBACK);
