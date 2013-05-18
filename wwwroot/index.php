@@ -11,7 +11,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     //登陆完毕之后干嘛
     echo "已取得授权。。。";
     //看推
-    $username = isset($_GET['t']) ? $_GET['t'] : "Timy_127";
+    $username = isset($_GET['t']) ? $_GET['t'] : $_SESSION['screen_name'];
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 	$twitteroauth->$host = "https://api.twitter.com/1.1/";
 	$twitteroauth->useragent = 'Custom useragent string';
