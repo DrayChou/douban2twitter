@@ -24,7 +24,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	    session_destroy();
 	    header('Location: /index.php');
 	} elseif ( $setp == "1" ){
-		$douban_screen_name = isset($_GET["dn"]) ? $_GET["dn"] : '';
+		$douban_screen_name = isset($_POST["dn"]) ? $_POST["dn"] : '';
 		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
 		echo '<pre>',var_dump($douban_userinfo,true),'</pre>';
 		
@@ -111,7 +111,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
 		                <?php else:?>
-		                    <form method="get" action="index.php?s=1">
+		                    <form method="post" action="index.php?s=1">
 		                    	<input type="text" name="dn">
 		                    	<input type="submit">
 		                    </form>
