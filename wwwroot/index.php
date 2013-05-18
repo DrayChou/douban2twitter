@@ -102,24 +102,26 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
                     name:<?= $twitter->name ?><br/>
                     bio:<?= $twitter->description ?><br/>
                     <p><a href='./index.php?setp=0'>clearing your session</a></p>
+
+					 <div>
+		                <?php if (!empty($douban_userinfo)): ?>
+		                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
+		                    name:<?= $douban_userinfo['name'] ?><br/>
+		                    bio:<?= $douban_userinfo['desc'] ?><br/>
+		                <?php else:?>
+		                    <form method="post" action="index.php?s=1">
+		                    	<input type="text" name="dn">
+		                    	<input type="submit">
+		                    </form>
+		                <?php endif; ?>
+		            </div>
+                    
                 <?php else:?>
                     <a href='<?=$oauth_url?>'>twitter</a>
                 <?php endif; ?>
             </div>
 
-            <div>
-                <?php if (!empty($douban_userinfo)): ?>
-                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
-                    name:<?= $douban_userinfo['name'] ?><br/>
-                    bio:<?= $douban_userinfo['desc'] ?><br/>
-                    <p><a href='./index.php?setp=0'>clearing your session</a></p>
-                <?php else:?>
-                    <form method="post" action="index.php?s=1">
-                    	<input type="text" name="dn">
-                    	<input type="submit">
-                    </form>
-                <?php endif; ?>
-            </div>
+           
     </body>
 </html>
 
