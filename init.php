@@ -11,4 +11,6 @@ define('APPROOT', dirname(__FILE__));
 define('USER_DIR', APPROOT . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR);
 define('LOG_DIR', APPROOT . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR);
 
+define('DEBUG', TRUE);
+
 session_start();
