@@ -32,7 +32,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     // 数据不完整，转到上一步
     unset($_SESSION['access_token']);
 
-    echo 'else',CONSUMER_KEY,'  ',CONSUMER_SECRET;
+    echo 'else',CONSUMER_KEY,'  ',CONSUMER_SECRET,'  '.APPROOT;
     die();
 
     // 创建 TwitterOAuth 对象实例
