@@ -11,7 +11,7 @@ require 'twitteroauth/twitteroauth.php';
 $twitter_config = get_twitter_config(TWITTER_ID);
 if (!empty($twitter_config['oauth_token']) && !empty($twitter_config['oauth_token_secret'])) {
     //看推
-    $username = isset($_GET['t']) ? $_GET['t'] : "Timy_127";
+    $username = isset($_GET['t']) ? $_GET['t'] : TWITTER_ID;
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitter_config['oauth_token'], $twitter_config['oauth_token_secret']);
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
     //echo '<pre>',var_dump($result,true),'</pre>';
