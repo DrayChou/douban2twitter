@@ -12,7 +12,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	$twitteroauth->ssl_verifypeer = TRUE;
     
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
-    //echo '<pre>',var_dump($result,true),'</pre>';
+    echo '<pre>',var_dump($result,true),'</pre>',die();;
     $twitter = $result[0];
 
 	$setp = isset($_GET["setp"]) ? $_GET["setp"] : '-1';
