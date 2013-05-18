@@ -1,6 +1,9 @@
 <?php
 include dirname(dirname(__FILE__)).'init.php';
 
+die('122');
+
+
 if ($_GET["setp"] == "0") {
     session_start();
     session_destroy();
