@@ -13,7 +13,11 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
     echo '<pre>',var_dump($result,true),'</pre>',die();;
-    $twitter = $result[0];
+    $twitter = @$result[0];
+    if(empty($twitter)){
+	    session_destroy();
+	    header('Location: /index.php');
+    }
 
 	$setp = isset($_GET["setp"]) ? $_GET["setp"] : '-1';
 	if ( $setp == "0" ) {
