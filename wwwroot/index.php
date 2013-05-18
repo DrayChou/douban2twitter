@@ -29,11 +29,11 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 		echo '<pre>',var_dump($douban_userinfo,true),'</pre>';
 		
 		if( empty($douban_userinfo) ){
-			header('Location: /index.php');
+			//header('Location: /index.php');
 		}
 		$_SESSION['douban'] = $douban_userinfo;
 		set_twitter_config($_SESSION);
-    	header('Location: /index.php');
+    	//header('Location: /index.php');
 	}
     
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
