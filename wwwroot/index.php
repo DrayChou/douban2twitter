@@ -6,6 +6,9 @@ if ($_GET["setp"] == "0") {
     session_destroy();
 }
 
+var_dump($_SESSION);
+die();
+
 if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['access_token']['oauth_token_secret']) ) {
     //登陆完毕之后干嘛
     echo "已取得授权。。。";
