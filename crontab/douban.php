@@ -51,6 +51,7 @@ function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
           
             echo "<br/>发布:" . $value["content"] . "<br/>\n";
             $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitter_oauth_token, $twitter_oauth_token);
+            $twitteroauth->host = "https://api.twitter.com/1.1/";
             $result = $twitteroauth->post('statuses/update', array('status' => $value["content"]));
             if (!empty($result->id_str)) {
                 $href = "https://twitter.com/#!/{$result->user->screen_name}/status/{$result->id_str}";
