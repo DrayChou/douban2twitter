@@ -6,7 +6,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     echo "已取得授权。。。";
     //看推
     $username = isset($_GET['t']) ? $_GET['t'] : $_SESSION['screen_name'];
-    $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+    $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['access_token']['oauth_token'], $_SESSION['access_token']['oauth_token_secret']);
 	#$twitteroauth->host = "https://api.twitter.com/1.1/";
 	#$twitteroauth->ssl_verifypeer = TRUE;
     
@@ -48,8 +48,10 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     $_SESSION['access_token'] = $access_token;
     $_SESSION['user_id'] = $access_token["user_id"];
     $_SESSION['screen_name'] = $access_token["screen_name"];
+    unset($_SESSION['oauth_token']);
+    unset($_SESSION['oauth_token_secret']);
 
-    set_twitter_config($access_token);
+    //set_twitter_config($_SESSION);
     header('Location: /index.php');
 } else {
     // 数据不完整，转到上一步
