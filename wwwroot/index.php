@@ -11,7 +11,10 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	#$twitteroauth->ssl_verifypeer = TRUE;
     
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
-    echo '<pre>',var_dump($result,true),'</pre>';
+    if(DEBUG){
+        set_douban_debug_log($_SESSION);
+    }
+
     if(!isset($result[0])){
 	    session_destroy();
 	    header('Location: /index.php');
@@ -25,14 +28,20 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 	} elseif ( $setp == "1" ){
 		$douban_screen_name = isset($_POST["dn"]) ? $_POST["dn"] : '';
 		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
-		echo '<pre>',var_dump($douban_userinfo,true),'</pre>';
+
+        if(DEBUG){
+            set_douban_debug_log($douban_userinfo);
+        }
 		
 		if( empty($douban_userinfo) ){
 			//header('Location: /index.php');
 		}
 		$_SESSION['douban'] = $douban_userinfo;
 
-        echo '<pre>',var_dump($_SESSION,true),'</pre>';
+        if(DEBUG){
+            set_douban_debug_log($_SESSION);
+        }
+
 		set_twitter_config($_SESSION);
     	//header('Location: /index.php');
 	}

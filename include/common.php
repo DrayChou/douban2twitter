@@ -68,7 +68,7 @@ function set_douban_log($douban_id, $douban_str) {
 function set_douban_error_log($douban_id, $douban_str) {
     $user_file_name = LOG_DIR . $douban_id . ".douban.error.log";
     $fh = fopen($user_file_name, 'a');
-    $result = fwrite($fh, serialize($douban_str) . "\n");
+    $result = fwrite($fh, print_r($douban_str, true) . "\n");
     fclose($fh);
     return $result;
 }
@@ -76,7 +76,7 @@ function set_douban_error_log($douban_id, $douban_str) {
 function set_douban_debug_log($douban_id, $douban_str) {
     $user_file_name = LOG_DIR . $douban_id . ".douban.debug.log";
     $fh = fopen($user_file_name, 'a');
-    $result = fwrite($fh, serialize($douban_str) . "\n");
+    $result = fwrite($fh, print_r($douban_str, true) . "\n");
     fclose($fh);
     return $result;
 }

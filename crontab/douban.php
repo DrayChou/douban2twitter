@@ -6,7 +6,7 @@ foreach (glob(USER_DIR."*.twitter.config") as $filename) {
     echo "$filename size " . filesize($filename) . "\n";
     $jsonStr = file_get_contents($filename);
     $userinfo = unserialize($jsonStr);
-    var_dump($userinfo);
+    //var_dump($userinfo);
 
     #douban_id
     if( !isset($userinfo['douban']['name']) ){
@@ -44,9 +44,9 @@ function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
         $last_douban["time"] = 0;
     }
 
-    $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitter_oauth_token, $twitter_oauth_token);
+    $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitter_oauth_token, $twitter_oauth_token_secret);
     $twitteroauth->host = "https://api.twitter.com/1.1/";
-    var_dump($twitteroauth);
+    //var_dump($twitteroauth);
 
     echo "进入发布页<br/>\n";
     $newst_douban = array();
