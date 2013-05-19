@@ -13,15 +13,15 @@ foreach (glob(USER_DIR."*.twitter.config") as $filename) {
     }
     $douban_id = $userinfo['douban']['name'];
 
-    if( !isset($userinfo['oauth_token']) ){
+    if( !isset($userinfo['access_token']['oauth_token']) ){
         continue;
     }
-    $twitter_oauth_token = $userinfo['oauth_token'];
+    $twitter_oauth_token = $userinfo['access_token']['oauth_token'];
 
-    if( !isset($userinfo['oauth_token_secret']) ){
+    if( !isset($userinfo['access_token']['oauth_token_secret']) ){
         continue;
     }
-    $twitter_oauth_token_secret = $userinfo['oauth_token_secret'];
+    $twitter_oauth_token_secret = $userinfo['access_token']['oauth_token_secret'];
 
     db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret);
 }
@@ -41,7 +41,8 @@ function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
     echo "进入发布页<br/>\n";
     $newst_douban = array();
     foreach ($new_douban as $value) {
-        if ($value["time"] > $last_douban["time"]) {          
+        if ($value["time"] > $last_douban["time"]) {
+          
             echo "<br/>发布:" . $value["content"] . "<br/>\n";
             $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitter_oauth_token, $twitter_oauth_token);
             $result = $twitteroauth->post('statuses/update', array('status' => $value["content"]));

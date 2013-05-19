@@ -31,6 +31,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 			//header('Location: /index.php');
 		}
 		$_SESSION['douban'] = $douban_userinfo;
+
+        echo '<pre>',var_dump($_SESSION,true),'</pre>';
 		set_twitter_config($_SESSION);
     	//header('Location: /index.php');
 	}
