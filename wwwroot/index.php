@@ -48,8 +48,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     $_SESSION['access_token'] = $access_token;
     $_SESSION['user_id'] = $access_token["user_id"];
     $_SESSION['screen_name'] = $access_token["screen_name"];
-    unset($_SESSION['oauth_token']);
-    unset($_SESSION['oauth_token_secret']);
+    //unset($_SESSION['oauth_token']);
+    //unset($_SESSION['oauth_token_secret']);
 
     //set_twitter_config($_SESSION);
     header('Location: /index.php');
