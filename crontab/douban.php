@@ -53,6 +53,7 @@ function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
                 $value["twitter_href"] = $href;
             } else {
                 set_douban_error_log($douban_id, array("douban" => $value, "result" => $result));
+                echo "发布失败<br/>\n\n";
                 continue;
             }
 
@@ -62,7 +63,7 @@ function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
         }
     }
     if (empty($newst_douban)) {
-        echo "没有新状态需要发送<br/>\n";
+        echo "没有新状态发送出去<br/>\n";
     } else {
         set_douban_log($douban_id, $newst_douban);
         echo "发布完成<br/>\n";
