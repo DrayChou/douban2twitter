@@ -8,9 +8,21 @@ foreach (glob(USER_DIR."*.twitter.config") as $filename) {
     $userinfo = unserialize($jsonStr);
     var_dump($userinfo);
 
-    $douban_id = isset($userinfo['douban']['name'])?$userinfo['douban']['name']:continue;
-    $twitter_oauth_token = isset($userinfo['access_token']['oauth_token'])?$userinfo['access_token']['oauth_token']:continue;
-    $twitter_oauth_token_secret = isset($userinfo['access_token']['oauth_token_secret'])?$userinfo['access_token']['oauth_token_secret']:continue;
+    if( !isset($userinfo['douban']['name']) ){
+        continue;
+    }
+    $douban_id = $userinfo['douban']['name'];
+
+    if( !isset($userinfo['access_token']['oauth_token']) ){
+        continue;
+    }
+    $twitter_oauth_token = $userinfo['access_token']['oauth_token'];
+
+    if( !isset($userinfo['access_token']['oauth_token_secret']) ){
+        continue;
+    }
+    $twitter_oauth_token_secret = $userinfo['access_token']['oauth_token_secret'];
+
     db2t($userinfo['douban']['name'], $twitter_oauth_token, $twitter_oauth_token_secret);
 }
 
