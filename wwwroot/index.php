@@ -101,7 +101,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
             <div>
                 <?php if (!empty($twitter)): ?>
-                    <h2>Twitter</h2>
+                    <h3>Twitter</h3>
                     <img src="<?= $twitter->profile_image_url_https ?>" title="<?= $twitter->name ?>"/><br/>
                     name:<?= $twitter->name ?><br/>
                     bio:<?= $twitter->description ?><br/>
@@ -109,7 +109,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
 					 <div>
 		                <?php if (!empty($douban_userinfo)): ?>
-                            <h2>DouBan</h2>
+                            <h3>DouBan</h3>
 		                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
