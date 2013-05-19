@@ -7,9 +7,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
     //看推
     $username = isset($_GET['t']) ? $_GET['t'] : $_SESSION['screen_name'];
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-	//$twitteroauth->host = "https://api.twitter.com/1.1/";
-	//$twitteroauth->useragent = 'Custom useragent string';
-	//$twitteroauth->ssl_verifypeer = TRUE;
+	$twitteroauth->host = "https://api.twitter.com/1.1/";
+	$twitteroauth->ssl_verifypeer = TRUE;
     
     $result = $twitteroauth->get('users/lookup', array('screen_name' => $username));
     echo '<pre>',var_dump($result,true),'</pre>';
@@ -39,9 +38,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
     // 数据合法，继续
     $twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
- //   $twitteroauth->host = "https://api.twitter.com/1.1/";
-	//$twitteroauth->useragent = 'Custom useragent string';
-	//$twitteroauth->ssl_verifypeer = TRUE;
+   $twitteroauth->host = "https://api.twitter.com/1.1/";
+	$twitteroauth->ssl_verifypeer = TRUE;
 
     // 获取 access token
     $access_token = $twitteroauth->getAccessToken($_GET['oauth_verifier']);
@@ -59,9 +57,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
     // 创建 TwitterOAuth 对象实例
 	$twitteroauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-	//$twitteroauth->host = "https://api.twitter.com/1.1/";
-	//$twitteroauth->useragent = 'Custom useragent string';
-	//$twitteroauth->ssl_verifypeer = TRUE;
+	$twitteroauth->host = "https://api.twitter.com/1.1/";
+	$twitteroauth->ssl_verifypeer = TRUE;
 
     //var_dump($twitteroauth);die();
 
@@ -100,6 +97,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
             <div>
                 <?php if (!empty($twitter)): ?>
+                    <h2>Twitter</h2>
                     <img src="<?= $twitter->profile_image_url_https ?>" title="<?= $twitter->name ?>"/><br/>
                     name:<?= $twitter->name ?><br/>
                     bio:<?= $twitter->description ?><br/>
@@ -107,6 +105,7 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
 					 <div>
 		                <?php if (!empty($douban_userinfo)): ?>
+                            <h2>DouBan</h2>
 		                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
@@ -122,8 +121,6 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
                     <a href='<?=$oauth_url?>'>twitter</a>
                 <?php endif; ?>
             </div>
-
-           
     </body>
 </html>
 
