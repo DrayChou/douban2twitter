@@ -23,7 +23,7 @@ foreach (glob(USER_DIR."*.twitter.config") as $filename) {
     }
     $twitter_oauth_token_secret = $userinfo['access_token']['oauth_token_secret'];
 
-    db2t($userinfo['douban']['name'], $twitter_oauth_token, $twitter_oauth_token_secret);
+    db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret);
 }
 
 function db2t($douban_id, $twitter_oauth_token, $twitter_oauth_token_secret){
