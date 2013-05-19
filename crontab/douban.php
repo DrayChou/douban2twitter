@@ -1,7 +1,11 @@
 <?php
 
+require dirname(dirname(__FILE__)).'/init.php';
 
-require dirname(dirname(__FILE__)).'init.php';
+foreach (glob(USER_DIR."*.twitter.config") as $filename) {
+    echo "$filename size " . filesize($filename) . "\n";
+}
+die();
 
 $last_douban = get_douban_log(DOUBAN_ID);
 $new_douban = get_douban(DOUBAN_ID);
