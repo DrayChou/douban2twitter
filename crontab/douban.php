@@ -4,6 +4,9 @@ require dirname(dirname(__FILE__)).'/init.php';
 
 foreach (glob(USER_DIR."*.twitter.config") as $filename) {
     echo "$filename size " . filesize($filename) . "\n";
+    $jsonStr = file_get_contents($filename);
+    $userinfo = json_decode($jsonStr, true);
+    var_dump($userinfo);
 }
 die();
 
