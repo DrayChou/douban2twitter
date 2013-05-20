@@ -31,7 +31,7 @@ function get_douban($douban_id, $count = 5) {
 				$douban_rss_list[$id] = array(
 					'time' => strtotime($v['created_at']),
 					'link' => $a['href'],
-					'content' => "#douban #NowPlaying ".$a['title'],
+					'content' => "#douban #NowPlaying ".$v['title'].' -> '.$a['title'].' '.$v['text'],
 				);
 			}
 
