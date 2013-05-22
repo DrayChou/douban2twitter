@@ -22,6 +22,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
         die();
     }
     $twitter = @$result[0];
+    $userinfo = get_twitter_config($_SESSION['screen_name']);
+    $_SESSION['douban'] = $userinfo['douban'];
 
 	$setp = isset($_GET["setp"]) ? $_GET["setp"] : '-1';
 	if ( $setp == "0" ) {
@@ -30,18 +32,18 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
         die();
 	} elseif ( $setp == "1" ){
 		$douban_screen_name = isset($_POST["dn"]) ? $_POST["dn"] : '';
-		$douban_userinfo = get_douban_userinfo( $douban_screen_name );
+		$douban_user_info = get_douban_userinfo( $douban_screen_name );
 
         if(DEBUG){
-            set_douban_debug_log($douban_userinfo);
+            set_douban_debug_log($douban_user_info);
         }
 		
-		if( empty($douban_userinfo) ){
+		if( empty($douban_user_info) ){
 			echo "豆瓣ID错误，或者豆瓣 API 查询失败，请返回重新填写 <br/>";
             echo '<a href="javascript:window.history.go(-1);" >返回</a>';
             die();
 		}
-		$_SESSION['douban'] = $douban_userinfo;
+		$_SESSION['douban'] = $douban_user_info;
 
         if(DEBUG){
             set_douban_debug_log($_SESSION);
@@ -126,12 +128,12 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
                     <p><a href='./index.php?setp=0'>退出登录</a></p>
 
 					 <div>
-		                <?php if (!empty($douban_userinfo)): ?>
+		                <?php if (!empty($_SESSION['douban'])): ?>
                             <h3>DouBan</h3>
                             <p>同步...(每5分钟抓取同步一次</p>
-		                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
-		                    name:<?= $douban_userinfo['name'] ?><br/>
-		                    bio:<?= $douban_userinfo['desc'] ?><br/>
+		                    <img src="<?= $_SESSION['douban']['avatar'] ?>" title="<?= $_SESSION['douban']['name'] ?>"/><br/>
+		                    name:<?= $_SESSION['douban']['name'] ?><br/>
+		                    bio:<?= $_SESSION['douban']['desc'] ?><br/>
                             <p><a href='./index.php?setp=2'>取消同步</a></p>
 		                <?php else:?>
                             <h4>要转发的豆瓣ID</h4>
