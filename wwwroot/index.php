@@ -49,7 +49,11 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 
 		set_twitter_config($_SESSION);
     	//header('Location: /index.php');
-	}
+	} elseif ( $setp == "2" ){
+        $_SESSION['douban'] = null;
+        set_twitter_config($_SESSION);
+        //header('Location: /index.php');
+    }
     
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
     // 数据合法，继续
@@ -124,9 +128,11 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
 					 <div>
 		                <?php if (!empty($douban_userinfo)): ?>
                             <h3>DouBan</h3>
+                            <p>同步...(每5分钟抓取同步一次</p>
 		                    <img src="<?= $douban_userinfo['avatar'] ?>" title="<?= $douban_userinfo['name'] ?>"/><br/>
 		                    name:<?= $douban_userinfo['name'] ?><br/>
 		                    bio:<?= $douban_userinfo['desc'] ?><br/>
+                            <p><a href='./index.php?setp=2'>取消同步</a></p>
 		                <?php else:?>
                             <h4>要转发的豆瓣ID</h4>
 		                    <form method="post" action="index.php?setp=1">
