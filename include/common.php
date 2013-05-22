@@ -31,7 +31,7 @@ function get_douban($douban_id, $count = 5) {
 				$douban_rss_list[$id] = array(
 					'time' => strtotime($v['created_at']),
 					'link' => $a['href'],
-					'content' => "#douban #NowPlaying ".$v['title'].' -> '.$a['title'].' '.$v['text'],
+					'content' => "#DoubanFM #NowPlaying ".$v['title'].' -> '.$a['title'].'; '.$v['text'],
 				);
 			}
 
@@ -41,7 +41,7 @@ function get_douban($douban_id, $count = 5) {
 				$douban_rss_list[$id] = array(
 					'time' => strtotime($v['created_at']),
 					'link' => '',
-					'content' => "#douban ".$v['text'],
+					'content' => "#DoubanShuo ".$v['text'],
 				);
 			}			
         }
