@@ -97,3 +97,34 @@ function get_twitter_config($twitter_id) {
     }
     return $Str;
 }
+
+function get_log($log_id) {
+    $Str = array();
+    $user_file_name = LOG_DIR . $log_id . ".log";
+    if (file_exists($user_file_name)) {
+        $Str = file_get_contents($user_file_name);
+        $Str = unserialize($Str);
+    }
+    return $Str;
+}
+
+function set_log($log_id, $str) {
+    $user_file_name = LOG_DIR . $log_id . ".log";
+    return file_put_contents($user_file_name, serialize($str));
+}
+
+function set_error_log($log_id, $str) {
+    $user_file_name = LOG_DIR . $log_id . ".error.log";
+    $fh = fopen($user_file_name, 'a');
+    $result = fwrite($fh, print_r($str,true) . "\n");
+    fclose($fh);
+    return $result;
+}
+
+function set_debug_log($log_id, $str) {
+    $user_file_name = LOG_DIR . $log_id . ".debug.log";
+    $fh = fopen($user_file_name, 'a');
+    $result = fwrite($fh, print_r($str,true) . "\n");
+    fclose($fh);
+    return $result;
+}

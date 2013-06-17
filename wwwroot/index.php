@@ -55,6 +55,8 @@ if ( !empty($_SESSION['access_token']['oauth_token']) && !empty($_SESSION['acces
         $_SESSION['douban'] = null;
         set_twitter_config($_SESSION);
         //header('Location: /index.php');
+    }else{
+	    set_twitter_config($_SESSION);
     }
     
 } elseif ( !empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret']) ) {
